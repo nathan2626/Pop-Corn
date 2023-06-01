@@ -9,10 +9,12 @@ export default class Player {
         this.parameter = _options.parameter;
 
         this.setPlayer();
+        
+        // Step 1: Create a new instance of the Controller class 
+        // and pass the current instance of the Player class as a parameter
+        // (to be able to access the player's properties and methods from the Controller class)
+        this.controller = new Controller(this);
 
-        this.controller = new Controller({
-
-        })
     }
 
     setPlayer(){
@@ -49,8 +51,16 @@ export default class Player {
         // Create colliders for the player
     }
 
+    // To move the popcorn cone horizontally
+    moveHorizontally(value) {
+        this.player.position.x += value;
+    }
+
     updatePlayer(deltaT){
-        // Move the player according to the controller
+        // Step 3: Update the player's position according to the horizontal movement of the touch 
+        // (the horizontalMovement property is set in the onTouchMove method of the Controller class)
+        const horizontalMovement = this.controller.horizontalMovement;
+        this.moveHorizontally(horizontalMovement);
     }
 
     update(deltaT){
